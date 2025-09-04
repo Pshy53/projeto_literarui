@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Cantinho Literário | O Morro dos Ventos Uivantes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos Gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        
+        body {
+            background-color: #1a1a1a;
+            color: #d9d9d9;
+            line-height: 1.6;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231a1a1a"/><path d="M0,50 Q20,30 50,50 T100,50" fill="none" stroke="%23222" stroke-width="0.5"/></svg>');
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Cabeçalho */
+        header {
+            background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+            padding: 30px 0;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #8c6d46, transparent);
+        }
+        
+        .site-title {
+            font-size: 2.8rem;
+            color: #c9a86d;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .book-title {
+            font-size: 1.8rem;
+            color: #a6a6a6;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .presented-by {
+            color: #bfbfbf;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+        
+        /* Navegação por abas */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .tab-button {
+            background-color: #262626;
+            color: #c9a86d;
+            border: none;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 1px solid #404040;
+            margin: 0 5px;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .tab-button.active {
+            background-color: #c9a86d;
+            color: #1a1a1a;
+        }
+        
+        .tab-button:hover {
+            background-color: #d9b777;
+            color: #1a1a1a;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+            background-color: #222;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            margin-bottom: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Conteúdo */
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #c9a86d;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #404040;
+            font-size: 2rem;
+        }
+        
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        /* Layout com imagem e texto lado a lado */
+        .img-text-container {
+            display: flex;
+            gap: 30px;
+            margin: 25px 0;
+            align-items: flex-start;
+        }
+        
+        .img-container {
+            flex: 0 0 300px;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border: 1px solid #404040;
+        }
+        
+        .img-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .text-content {
+            flex: 1;
+        }
+        
+        /* Personagens */
+        .characters {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .character-card {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #404040;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .character-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .character-card h3 {
+            color: #c9a86d;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #404040;
+            padding-bottom: 5px;
+        }
+        
+        /* Citações */
+        blockquote {
+            font-style: italic;
+            border-left: 4px solid #c9a86d;
+            padding-left: 20px;
+            margin: 25px 0;
+            color: #bfbfbf;
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* Livros */
+        .books {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .book-card {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #404040;
+            transition: transform 0.3s;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .book-card h3 {
+            color: #c9a86d;
+            margin-bottom: 10px;
+        }
+        
+        /* Rodapé */
+        footer {
+            background: linear-gradient(to top, #0d0d0d, #1a1a1a);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid #333;
+            margin-top: 50px;
+        }
+        
+        footer p {
+            color: #a6a6a6;
+            margin-bottom: 10px;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .tab-button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .site-title {
+                font-size: 2rem;
+            }
+            
+            .book-title {
+                font-size: 1.4rem;
+            }
+            
+            .characters, .books {
+                grid-template-columns: 1fr;
+            }
+            
+            .img-text-container {
+                flex-direction: column;
+            }
+            
+            .img-container {
+                flex: 0 0 auto;
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="site-title">Meu Cantinho Literário</h1>
+            <p class="book-title">O Morro dos Ventos Uivantes - Emily Brontë</p>
+            <p class="presented-by">Apresentado por: Ana Beatriz, Pedro Henrique, Lorena Nunes, Brenda, Ana Julia, Alice</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab('book')">
+                <i class="fas fa-book"></i> Sobre o Livro
+            </button>
+            <button class="tab-button" onclick="openTab('author')">
+                <i class="fas fa-user"></i> Sobre a Autora
+            </button>
+        </div>
+        
+        <div id="book" class="tab-content active">
+            <div class="section">
+                <h2>O Morro dos Ventos Uivantes</h2>
+                
+                <div class="img-text-container">
+                    <div class="img-container">
+                        <img src="capa-morro-ventos-uivantes.jpg" alt="Capa do livro O Morro dos Ventos Uivantes">
+                    </div>
+                    <div class="text-content">
+                        <p>Publicado em 1847 sob o pseudônimo de Ellis Bell, "O Morro dos Ventos Uivantes" é considerado um dos grandes clássicos da literatura inglesa. A obra se destaca por sua narrativa intensa e pela complexidade psicológica de seus personagens.</p>
+                        <p>"O Morro dos Ventos Uivantes", de Emily Brontë, é um drama passional que gira em torno da intensa e destrutiva relação entre Catherine Earnshaw e Heathcliff. Criados juntos como irmãos, os dois desenvolvem um amor profundo e quase selvagem. No entanto, movida pela ambição social, Catherine decide se casar com Edgar Linton, um vizinho rico e refinado. A traição sentida por Heathcliff é tão profunda que ele abandona a propriedade e retorna anos depois, rico e educado, com o único objetivo de vingança.
+
+Heathcliff destrói metodicamente a vida de todos ao seu redor: humilha o irmão de Catherine, Hindley, e assume o controle de sua casa; casa-se com a irmã de Edgar, Isabella, para torturá-la; e sua presença obsessiva leva Catherine à loucura e à morte. Sua vingança não para e se estende à próxima geração, manipulando o casamento de seus filhos para controlar toda a herança das famílias. A história só encontra um vislumbre de redenção com o amor que surge entre a jovem Cathy (filha de Catherine) e Hareton (filho de Hindley), quebrando o ciclo de ódio iniciado por Heathcliff. No final, consumido pela obsessão de se reunir com o fantasma de sua amada, Heathcliff morre, liberando todos de sua influência maligna. A obra é um estudo sombrio sobre as consequências do amor obsessivo, ódio e desejo de vingança.</p>
+                    </div>
+                </div>
+                
+                <blockquote>
+                    "Eu não sou digno de você? Então, por que você me abandonou? Por que você me desprezou? Por que você traiu seu próprio coração, Cathy? Não tenho uma palavra de consolo. Você merece isso. Você se matou."
+                </blockquote>
+            </div>
+            
+            <div class="section">
+                <h2>Personagens Principais</h2>
+                <div class="characters">
+                    <div class="character-card">
+                        <h3>Heathcliff</h3>
+                        <p>Protagonista obscuro e vingativo, é adotado pela família Earnshaw. Sua paixão obsessiva por Catherine molda toda a trama.</p>
+                    </div>
+                    <div class="character-card">
+                        <h3>Catherine Earnshaw</h3>
+                        <p>Espírito livre e apaixonado, divide seu coração entre Heathcliff e Edgar Linton, gerando consequências trágicas.</p>
+                    </div>
+                    <div class="character-card">
+                        <h3>Edgar Linton</h3>
+                        <p>Homem educado e gentil, que se casa com Catherine e representa o mundo da civilização e da razão.</p>
+                    </div>
+                    <div class="character-card">
+                        <h3>Isabella Linton</h3>
+                        <p>Irmã de Edgar, que se casa com Heathcliff movida por uma paixão ingênua e sofre as consequências.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Temas Principais</h2>
+                <p><strong>Amor Obsessivo:</strong> A história central entre Heathcliff e Catherine transcende o amor romântico, tornando-se uma força destrutiva que consome a ambos.</p>
+                <p><strong>Vingança:</strong> Heathcliff passa grande parte da vida planejando e executando sua vingança contra aqueles que o rejeitaram.</p>
+                <p><strong>Natureza vs. Civilização:</strong> A oposição entre a natureza selvagem dos páramos e o mundo civilizado da casa dos Linton.</p>
+                <p><strong>Classes Sociais:</strong> O romance explora as barreiras sociais que separam os personagens e alimentam o ódio de Heathcliff.</p>
+            </div>
+        </div>
+        
+        <div id="author" class="tab-content">
+            <div class="section">
+                <h2>Emily Brontë</h2>
+                
+                <div class="img-text-container">
+                    <div class="img-container">
+                        <img src="emily-bronte.jpg" alt="Retrato de Emily Brontë">
+                    </div>
+                    <div class="text-content">
+                        <p>Emily Jane Brontë (1818-1848) foi uma escritora e poetisa inglesa, mais conhecida por seu único romance, "O Morro dos Ventos Uivantes". Ela era a segunda mais velha das três irmãs Brontë que sobreviveram à idade adulta e cujos romances se tornaram clássicos da literatura inglesa.</p>
+                        <p>Emily escrevia sob o pseudônimo masculino Ellis Bell, uma prática comum entre escritoras do século XIX para evitar preconceitos de gênero. Apesar de ter publicado apenas um romance e alguns poemas, sua obra é considerada uma das mais originais e poderosas da literatura inglesa.</p>
+                        <p>Ela faleceu de tuberculose em 19 de dezembro de 1848, com apenas 30 anos de idade, sem saber da fama que seu romance alcançaria postumamente.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Outras Obras de Emily Brontë</h2>
+                <div class="books">
+                    <div class="book-card">
+                        <h3>Poemas</h3>
+                        <p>Emily Brontë escreveu diversos poemas que refletem sua conexão com a natureza e suas profundas reflexões sobre a existência humana. Muitos de seus poemas foram publicados junto com os de suas irmãs Charlotte e Anne.</p>
+                    </div>
+                    <div class="book-card">
+                        <h3>Diários e Cartas</h3>
+                        <p>Algumas de suas cartas e diários foram preservados, oferecendo insights valiosos sobre sua vida e processo criativo. Esses documentos mostram uma personalidade reservada mas intensamente criativa.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Irmãs Brontë</h2>
+                <p>Emily Brontë fazia parte de uma famosa família literária. Suas irmãs Charlotte (autora de "Jane Eyre") e Anne (autora de "A Inquilina de Wildfell Hall") também foram escritoras talentosas. As três publicaram inicialmente sob pseudônimos masculinos: Currer, Ellis e Acton Bell.</p>
+                <p>As irmãs Brontë cresceram em Haworth, um vilarejo isolado nos páramos de Yorkshire, local que exerceu grande influência em suas obras, especialmente na de Emily.</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Meu Cantinho Literário - Site dedicado à obra-prima de Emily Brontë</p>
+            <p>Apresentado por: Ana Beatriz, Pedro Henrique, Lorena Nunes, Brenda, Ana Julia, Alice</p>
+            <p>© 2025 - Todos os direitos reservados a professora Taiza</p>
+        </div>
+    </footer>
+
+    <script>
+        function openTab(tabName) {
+            // Esconder todos os conteúdos de abas
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            // Desativar todos os botões de abas
+            var tabButtons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            
+            // Ativar a aba selecionada
+            document.getElementById(tabName).classList.add("active");
+            
+            // Ativar o botão clicado
+            event.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
